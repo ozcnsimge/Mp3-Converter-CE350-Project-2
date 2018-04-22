@@ -19,7 +19,7 @@ Clone or download repository. Unzip the file and run the convert.sh script in th
 ./convert.sh
 ```
 
-Comments ans suggestions are appreciated! --> [ozcnsimge](https://github.com/ozcnsimge)
+Comments and suggestions are appreciated! --> [ozcnsimge](https://github.com/ozcnsimge)
 
 
 ## License
