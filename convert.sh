@@ -6,7 +6,7 @@ function convertFlacToMp3 {
 
   croppedName=$(echo $1 | awk -F\. '{print $1}')
 
-  ffmpeg -i $1 -ab 320k -map_metadata 0 -id3v2_version 3 $croppedName.mp3
+  ffmpeg -i $1 -y -b:a $2 -map_metadata 0 -id3v2_version 3 $croppedName.mp3
 }
 
 function convertOggToMp3 {
@@ -17,9 +17,10 @@ function convertOggToMp3 {
 
   # If selected file is ogg, first decrypt to wav and the encryp to mp3.
 
-  ffmpeg -i $1 $croppedName.wav
+  ffmpeg -i $1 -y $croppedName.wav
 
-  ffmpeg -i $croppedName.wav -vn -ar 44100 -ac 2 -ab 192k -f mp3 $croppedName.mp3
+  ffmpeg -i $croppedName.wav -y -vn -ar 44100 -ac 2 -b:a $2 -f mp3 $croppedName.mp3
+  # FFREPORT=file=ffreport.log:level=32 ffmpeg -i input output
 }
 
 
@@ -40,9 +41,9 @@ else
   let j=1
   for i in $(ls .)
   do
-     if [ $(file $i | grep [aA]udio | awk 'BEGIN {FS=":"} {print $1}') ];
+     if [ $(file $i | grep audio | awk 'BEGIN {FS=":"} {print $1}') ];
      then
-       list+=("$(file $i | grep [aA]udio | awk 'BEGIN {FS=":"} {print $1}')")
+       list+=("$(file $i | grep audio | awk 'BEGIN {FS=":"} {print $1}')")
        list+=($j)
        let j++
      fi
@@ -58,7 +59,10 @@ else
 
   if [ $(echo $selectedItem | grep ogg$) ];
   then
-     convertOggToMp3 $selectedItem
+
+     bitrate=$(dialog --stdout --title "Mp3 Converter" --menu "Choose the desired bitrate:" 10 30 3 \ 96k 1 128k 2 160k 3 256k 4 320k 5)
+
+     convertOggToMp3 $selectedItem $bitrate
 
      if [ "$?" = "0" ]
      then
@@ -70,7 +74,10 @@ else
 
   elif [ $(echo $selectedItem | grep flac$) ];
   then
-     convertFlacToMp3 $selectedItem
+
+     bitrate=$(dialog --stdout --title "Mp3 Converter" --menu "Choose the desired bitrate:" 10 30 3 \ 96k 1 128k 2 160k 3 256k 4 320k 5)
+
+     convertFlacToMp3 $selectedItem $bitrate
 
      if [ "$?" = "0" ]
      then
@@ -81,7 +88,7 @@ else
   # Display an info box.
 
   else
-    dialog --title "Mp3 Converter" --msgbox "Action failed. Press <Enter> to exit" 10 30
+    dialog --title "Mp3 Converter" --msgbox "This format is not supported. Press <Enter> to exit" 10 30
   fi
 fi
 clear
