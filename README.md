@@ -13,13 +13,15 @@ User-friendly flac-mp3 and ogg-mp3 conversion using [ffmpeg](https://www.ffmpeg.
 
 ## How to use?
 
-Clone or download repository. Unzip the file and run the convert.sh script in the directory which the audio file is in.
+First, install [ffmpeg](https://www.ffmpeg.org).
+
+Then clone or download repository. Unzip the file and run the convert.sh script in the directory which the audio file is in.
 
 ```
 ./convert.sh
 ```
 
-Comments ans suggestions are appreciated! --> [ozcnsimge](https://github.com/ozcnsimge)
+Comments and suggestions are appreciated! --> [ozcnsimge](https://github.com/ozcnsimge)
 
 
 ## License
