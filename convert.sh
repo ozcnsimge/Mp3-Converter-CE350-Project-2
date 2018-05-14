@@ -51,9 +51,12 @@ else
 
 
   # Display a menu box and assign selection to a variable.
-
-  selectedItem=$(dialog --stdout --title "Mp3 Converter" --menu "Choose a file:" 10 30 3 \ ${list[@]})
-
+  if [ -z ${list+x} ]
+  then
+     exitVar=true
+  else
+     selectedItem=$(dialog --stdout --title "Mp3 Converter" --menu "Choose a file:" 10 30 3 \ ${list[@]})
+  fi
 
   # If selected file is ogg, convert it to mp3.
 
@@ -84,8 +87,18 @@ else
        dialog --title "Mp3 Converter" --msgbox "File successfully converted. Press <Enter> to exit" 10 30
      fi
 
+  elif [ -n "$exitVar" ]
+  then
+    dialog --title "Mp3 Converter" --msgbox "No audio file found in this directory!" 10 30
 
   # Display an info box.
+
+elif [ -z $selectedItem ]
+  then
+
+    # Display an info message.
+
+    dialog --title "Mp3 Converter" --msgbox "Action was canceled at your request." 10 30
 
   else
     dialog --title "Mp3 Converter" --msgbox "This format is not supported. Press <Enter> to exit" 10 30
