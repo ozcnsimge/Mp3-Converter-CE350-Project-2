@@ -13,17 +13,21 @@ User-friendly flac-mp3 and ogg-mp3 conversion using [ffmpeg](https://www.ffmpeg.
 
 ## How to use?
 
-First, install [ffmpeg](https://www.ffmpeg.org).
+First, install [ffmpeg](https://www.ffmpeg.org) and the Diolog Utility.
+
+Example for MacOS using Homebrew :
+
+```
+brew install ffmpeg
+```
+
+```
+brew install dialog
+```
+
 
 Then clone or download repository. Unzip the file and run the convert.sh script in the directory which the audio file is in.
 
 ```
 ./convert.sh
 ```
-
-Comments and suggestions are appreciated! --> [ozcnsimge](https://github.com/ozcnsimge)
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
